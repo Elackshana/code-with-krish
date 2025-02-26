@@ -1,20 +1,44 @@
-const {getMinNumber} = require('./util.js');
+const {getMinNumber, getMaxNumber, getAvgNumber, sortNumbers, countOccurrences} = require('./util.js');
 const express = require('express');
 
 const app = new express();
 const port = 3000;
 //const greeting={message:'hello node'};
 
-app.get('/number/max', (req, res) => {});
+//http://localhost:3000/number/max?numbers=3,4,6,10,4
+app.get('/number/max', (req, res) => {
+    const numbers = req.query.numbers.split(',');
+    const result = getMaxNumber(numbers);
+    res.status(result.status).json(result.data);
+});
 
 ///number/avg?numbers=1,4,7,44,676,......n
-app.get('/number/avg', (req, res) => {}); 
+//http://localhost:3000/number/avg?numbers=2,6,1
+app.get('/number/avg', (req, res) => {
+    const numbers = req.query.numbers.split(',');
+    const result = getAvgNumber(numbers);
+    res.status(result.status).json(result.data);
+}); 
 
 ///number/sort?numbers=1,4,7,44,676,......n&type (asc |dec)
-app.get('/number/sort', (req, res) => {}); 
+//http://localhost:3000/number/sort?numbers=2,6,1,9&type=asc
+app.get('/number/sort', (req, res) => {
+    const numbers = req.query.numbers.split(',');
+    const type = req.query.type;
+    const result = sortNumbers(numbers,type);
+    res.status(result.status).json(result.data);
+}); 
 
-///number/count?numbers=1,A,saman,Kamal,676,......n&search=saman //need to return how many occurances
-app.get('/number/count', (req, res) => {}); 
+///http://localhost:3000/number/count?numbers=1,A,saman,Kamal,676,......n&search=saman //need to return how many occurances
+//http://localhost:3000/number/count?numbers=1,A,saman,Kamal,saman,saman,676&search=saman
+app.get('/number/count', (req, res) => {
+    const numbers = req.query.numbers.split(',');
+    const search = req.query.search;
+    const result = countOccurrences(numbers,search);
+    res.status(result.status).json(result.data);
+}); 
+
+//Lab exercise :
 
 app.get('/number/min',(req,res) => {
 
