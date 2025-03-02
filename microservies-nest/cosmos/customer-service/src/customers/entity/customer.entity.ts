@@ -4,10 +4,10 @@ import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 export class Customer{
     @PrimaryGeneratedColumn()
     id : number;
-    @Column()
+    @Column({ nullable: false})//required
     name : string;
-    @Column()
+    @Column({ unique: true , nullable: false})
     email : string;
-    @Column()
+    @Column({ nullable: true })//optional
     address : string;
 }

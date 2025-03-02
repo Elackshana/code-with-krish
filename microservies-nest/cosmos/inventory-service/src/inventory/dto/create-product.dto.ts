@@ -4,4 +4,5 @@ export class createProductDto {
         price : number;
         quantity : number;
 
+
 }

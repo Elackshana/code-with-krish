@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { Product } from './entity/product.entity';
 import { createProductDto } from './dto/create-product.dto';
 
-@Controller('inventory')
+@Controller('products')
 export class InventoryController {
     constructor(private inventeryService: InventoryService){}
 
@@ -12,12 +12,20 @@ export class InventoryController {
         return await this.inventeryService.create(createProductDto);
     }
     @Get(':id')
-    async fetch(@Param('id') id: number){
-        return await this.inventeryService.fetch(id);
+    async get(@Param('id') id: number){
+        return await this.inventeryService.get(id);
     }
 
     @Get()
-    async fetchAll(){
-        return await this.inventeryService.fetchAll();
+    async getAll(){
+        return await this.inventeryService.getAll();
     }
+    @Get(':id/validate')
+    async validateStock(
+        @Param('id') id: number,
+        @Query('quantity') quantity: number,
+    ): Promise<{ available: boolean }> {
+        return this.inventeryService.validateStock(id, quantity);
+    }
+    
 }

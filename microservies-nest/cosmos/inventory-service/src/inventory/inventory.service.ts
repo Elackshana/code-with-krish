@@ -23,13 +23,20 @@ export class InventoryService {
             where: {id: savedProduct.id}
         });
     }
-    async fetch(id:any){
+    async get(id:any){
         return await this.inventoryRepository.findOne({
             where: {id},
         });
     }
-    async fetchAll(){
+    async getAll(){
         return await this.inventoryRepository.find({});
+    }
+    async validateStock(
+        id: number,
+        quantity: number,
+      ): Promise<{ available: boolean }> {
+        const product = await this.get(id);
+        return { available: product.quantity >= quantity };
     }
 
 }
