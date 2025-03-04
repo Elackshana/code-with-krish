@@ -4,6 +4,7 @@ import { OrdersService } from './orders.service';
 import { Order } from './entity/order.entity';
 import { UpdateOrdersStatus } from './dto/update-order.dto';
 
+
 @Controller('orders')
 export class OrdersController {
 
@@ -14,6 +15,8 @@ export class OrdersController {
         return await this.orderService.create(createOrderDto);
     }
     @Get(':id')
+//   @UseGuards(AuthGuard('jwt'), PermissionsGuard)
+//   @SetMetadata('permisions', 'order:read')
     async fetch(@Param('id') id: number){
         return await this.orderService.fetch(id);
     }
@@ -23,7 +26,10 @@ export class OrdersController {
         return await this.orderService.fetchAll();
     }
     @Patch(":id/status")
-    async updateOrderStatus(@Param('id') id:number, @Body() updateOrderStatus: UpdateOrdersStatus){
+    async updateOrderStatus(
+        @Param('id') id:number, 
+        @Body() updateOrderStatus: UpdateOrdersStatus
+    ){
         return await this.orderService.updateOrderStatus(id, updateOrderStatus);
     }
 

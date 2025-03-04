@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { Product } from './entity/product.entity';
 import { createProductDto } from './dto/create-product.dto';
 
 @Controller('products')
 export class InventoryController {
-    constructor(private inventeryService: InventoryService){}
+    constructor(private readonly inventeryService: InventoryService){}
 
     @Post()
     async create(@Body() createProductDto:createProductDto): Promise<Product>{
@@ -26,6 +26,13 @@ export class InventoryController {
         @Query('quantity') quantity: number,
     ): Promise<{ available: boolean }> {
         return this.inventeryService.validateStock(id, quantity);
+    }
+    @Patch(':id/quantity')
+    async reduceStock(
+        @Param('id') id: number,
+        @Body('quantity') quantity: number,
+    ): Promise<Product> {
+        return this.inventeryService.reduceStock(id, quantity);
     }
     
 }

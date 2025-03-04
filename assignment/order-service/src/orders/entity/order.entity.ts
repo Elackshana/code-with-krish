@@ -13,5 +13,9 @@ export class Order{
     status: string;
     @OneToMany(()=>OrderItem,(orderItem)=>orderItem.order, {cascade:true})
     items: OrderItem[];
+    //
+    @Column({ nullable: false})//required
+    city: string;
+
 
 }

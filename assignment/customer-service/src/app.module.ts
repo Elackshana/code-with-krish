@@ -8,7 +8,7 @@ import { Customer } from './customers/entity/customer.entity';
     CustomersModule, 
     TypeOrmModule.forRoot({
       type:'mysql',
-      host:process.env.HOSTNAME || 'localhost',
+      host:'localhost',
       port:3306,
       username:'root',
       password:'root',

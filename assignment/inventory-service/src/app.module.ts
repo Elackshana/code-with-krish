@@ -8,7 +8,7 @@ import { Product } from './inventory/entity/product.entity';
     InventoryModule, 
     TypeOrmModule.forRoot({
       type:'mysql',
-      host:process.env.HOSTNAME || 'localhost',
+      host: 'localhost',
       port:3306,
       username:'root',
       password:'root',

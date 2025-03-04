@@ -14,6 +14,7 @@ class OrderItemDto {
     @IsInt()
   
     quantity: number;
+
   
   }
   
@@ -31,5 +32,7 @@ class OrderItemDto {
     @Type(() => OrderItemDto)
   
     items: OrderItemDto[];
+
+    city: string;
   
   }
